@@ -1,1 +1,3 @@
-Arduino LCD Display Bounce Game 
+##Arduino LCD Display Bounce Game
+
+![alttext]
