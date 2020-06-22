@@ -3,10 +3,10 @@
 LiquidCrystal lcd(3,2,4,5,6,7);
 const int button = 8;
 char ascii = 0x00+0;
-byte boy[8]={B01110,B10001,B10001,B01110,B00100,B11111,B00100,B11011};
-byte life[8]={B00000,B00000,B11011,B11111,B01110,B00100,B00000,B00000};
-byte block[8]={B11111,B11111,B11111,B11011,B11111,B11111,B11111,B11111};
-byte ball[8]={B00000,B00000,B01110,B11111,B11111,B01110,B000000};
+uint8_t boy[8]={B01110,B11011,B10001,B01110,B00100,B11111,B00100,B11011};
+uint8_t life[8]={B00000,B00000,B11011,B11111,B01110,B00100,B00000,B00000};
+uint8_t block[8]={B11111,B11111,B11111,B11011,B11111,B11111,B11111,B11111};
+uint8_t ball[8]={B00000,B00000,B01110,B11111,B11111,B01110,B00000};
 
 void setup()
 {
@@ -19,48 +19,44 @@ void setup()
   lcd.createChar(3, block);
   lcd.createChar(4, ball);
 
-  test();
+  //calling driver function
   driver();
 }
-
 void test(){
-  for(int i=0; i<=15; i++) {
-    lcd.setCursor(i,0);
-    lcd.write(3);
-  }
-  delay(1000);
-  lcd.setCursor(0,0);
-  lcd.clear();
+  lcd.setCursor(1,0);
+  lcd.write(1);
 }
 
 void driver(){
-  int init_value = digitalRead(button);
-  bool state = false;
-  int chance = 13;
-  for(int i=chance; i<=16; ++i){
+  int life = 3;
+  long sec_pass = millis() / 1000;
+
+  for(int i=13; i<=16; ++i){
     lcd.setCursor(i,0);
     lcd.write(2);
   }
-  delay(500);
 
-  if(init_value == 1){
-    state = true;
-    if(state){
-      lcd.clear();
+  while(life != 0){
+    int init_value = digitalRead(button);
+    if(init_value == 1){
+      lcd.setCursor(1,1);
+      lcd.write(" ");
       lcd.setCursor(1,0);
       lcd.write(1);
     }
-  }
-  else if(init_value == 0){
-    state = true;
-    if(state){
-      lcd.clear();
+    else{
+      lcd.setCursor(1,0);
+      lcd.write(" ");
       lcd.setCursor(1,1);
       lcd.write(1);
     }
+
+    //Main Game mechanics
   }
+
   delay(100);
 }
 
 void loop(){ 
+  driver();
 }
