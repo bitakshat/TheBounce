@@ -19,23 +19,20 @@ void setup()
   lcd.createChar(3, block);
   lcd.createChar(4, ball);
 
-  //calling driver function
-  driver();
-}
-void test(){
-  lcd.setCursor(1,0);
-  lcd.write(1);
+  //call test/debug code here
 }
 
 void driver(){
   int life = 3;
   long sec_pass = millis() / 1000;
 
+  //life
   for(int i=13; i<=16; ++i){
     lcd.setCursor(i,0);
     lcd.write(2);
-  }
 
+  }
+  //boy
   while(life != 0){
     int init_value = digitalRead(button);
     if(init_value == 1){
@@ -51,12 +48,16 @@ void driver(){
       lcd.write(1);
     }
 
+    life -= 1;
+    for(int i=13; i>=15; i++){
+      lcd.setCursor(i, 0);
+      lcd.write(" ");
+    }
     //Main Game mechanics
   }
-
   delay(100);
 }
 
-void loop(){ 
+void loop(){
   driver();
 }
